@@ -1,0 +1,12 @@
+body{
+    overflow-x: hidden;
+}
+
+.logo{
+    width: 170px;
+    height: auto;
+}
+
+.navbar-custom{
+    background-color: #f3e9d5;
+}
