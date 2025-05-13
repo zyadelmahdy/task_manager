@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% block body %}
 <body class="padding-top-225">
 <form method="POST" action="{% url 'add_task' %}">
     {% csrf_token %}
@@ -24,6 +23,5 @@
         </div>
     </div>
 </form>
-{% endblock %}
 </body>
 {% endblock %}

@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% block body %}
 <body class="padding-top-225">
 <h1>User Profile</h1>
 <p>Username: {{ user.username }}</p>
 <p>Email: {{ user.email }}</p>
 <p>Name: {{ user.name }}</p>
 {% include 'task_manager_app/partials/add_task_btn.html' %}
-{% endblock %}
 </body>
 {% endblock %}

@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% block title %}Confirm Delete{% endblock %}
 
 {% block content %}
-{% load static %}
-{% block body %}
 <body class="padding-top-225">
     <h1>Confirm Delete</h1>
     <p>Are you sure you want to delete the task: "{{ task.title }}"?</p>
@@ -30,6 +29,5 @@
             }, 3000); // Adjust the time (in milliseconds) as needed
         </script>
     {% endif %}
-{% endblock %}
 </body>
 {% endblock %}
