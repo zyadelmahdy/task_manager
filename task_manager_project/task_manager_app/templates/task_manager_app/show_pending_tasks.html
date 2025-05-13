@@ -1,0 +1,32 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block title %} Pending Tasks {% endblock %} 
+{% block header %}
+  <h1>Pending Tasks</h1>
+{% endblock %}
+{% block content %} {% block body %}
+<body class="padding-top-225">
+
+<div class="container">
+  <div class="row d-flex align-items-stretch">
+    {% include 'task_manager_app/partials/task_tabs.html' with active_tab='all' %}
+    <div class="mt-5">
+    {% if pending_tasks %}
+    <ul>
+      {% for task in pending_tasks %}
+      <li>
+        <h2>{{ task.title }}</h2>
+        <p>{{ task.description }}</p>
+        <p>Due Date: {{ task.due_date }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No pending tasks available.</p>
+    {% endif %}
+  </div>
+</div>
+</div>
+{% endblock %} 
+</body>
+{% endblock %} 
