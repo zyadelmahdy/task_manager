@@ -11,28 +11,9 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                   
-                    <ul class="navbar-nav ms-auto my-2 my-lg-0 align-items-center">
-                      {% if user.is_authenticated %}
-                      <!-- Profile dropdown with tasks link -->
-                      <li class="nav-item dropdown">
-                        <a class="nav-link d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          <i class="bi bi-person-circle profile-icon"></i>
-                          <i class="bi bi-caret-down-fill ms-1 small"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown" style="z-index: 1021;">
-                          <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                          <li><a class="dropdown-item" href="{% url 'tasks_list' %}">My Tasks</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                        </ul>
-                      </li>
-                      {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
-                        
-                      {% endif %}
+                    
             
-                    </ul>
+                   {% include 'task_manager_app/partials/navbar_btn.html' %}
                 </div>
               </div>
 </nav>
