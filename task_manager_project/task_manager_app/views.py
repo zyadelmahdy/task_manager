@@ -19,7 +19,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('task_list')
+                return redirect('tasks_list')
             else:
                 # This branch handles if authentication failed
                 form.add_error(None, "Invalid username or password.")
@@ -37,7 +37,7 @@ def task_list_view(request):
         'tasks': tasks,
         'active_tab': 'all'
     })
-
+    
 
 @login_required(login_url='login')
 def show_completed_tasks_view(request):
@@ -92,6 +92,43 @@ def task_delete_view(request, task_id):
     return render(request, 'task_manager_app/task_delete.html', {'task': task})
 
 
+@login_required(login_url='login')    
+def move_to_pending_view(request, task_id):
+    try:
+        task = get_object_or_404(Task, pk=task_id, created_by=request.user)
+    except Task.DoesNotExist:
+        # Handle the case where the task doesn't exist
+        messages.error(request, "Task not found.")
+        return redirect(reverse('tasks_list'))
+    
+    if request.method == 'POST':
+        task_number = task.id
+        task.completed = False
+        task.save()
+        messages.success(request, f"Task {task_number} moved to pending successfully!")
+        return redirect(reverse('tasks_list'))
+    
+    return render(request, 'task_manager_app/move_to_pending.html', {'task': task})
+
+@login_required(login_url='login')
+def move_to_completed_view(request, task_id):
+    try:
+        task = get_object_or_404(Task, pk=task_id, created_by=request.user)
+    except Task.DoesNotExist:
+        # Handle the case where the task doesn't exist
+        messages.error(request, "Task not found.")
+        return redirect(reverse('tasks_list'))
+
+    if request.method == 'POST':
+        task_number = task.id
+        task.completed = True
+        task.save()
+        messages.success(request, f"Task {task_number} moved to completed successfully!")
+        return redirect(reverse('tasks_list'))
+    
+    return render(request, 'task_manager_app/move_to_completed.html', {'task': task})
+
+
 @login_required(login_url='login')
 def profile_view(request):
     user = get_object_or_404(User, id=request.user.id)
@@ -119,7 +156,9 @@ def add_task_view(request):
         if form.is_valid():
             task = form.save(commit=False)
             task.created_by = request.user
+            task.completed = False
             task.save()
+            messages.success(request, "Task added successfully!")
             return redirect('tasks_list')
     else:
         form = TaskForm()

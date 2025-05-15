@@ -8,25 +8,8 @@
   <div class="row d-flex align-items-stretch">
     {% include 'task_manager_app/partials/task_tabs.html' with active_tab='all' %}
     <div class="mt-5">
-      {% if tasks %}
-      <ul>
-        {% for task in tasks %}
-        <li>
-          <h2>{{ task.title }}</h2>
-          <p>{{ task.description }}</p>
-          <p>Due Date: {% if task.due_date %}{{ task.due_date }}{% else %}Not set{% endif %}</p>
-          <button>Move to Pending</button>
-          <button>Move to Completed</button>
-          <a href="{% url 'task_delete' task.id %}" class="btn btn-danger btn-sm">Delete</a>
-          <button>View Details</button>
-          <button>Edit</button>
-          
-        </li>
-        {% endfor %}
-      </ul>
-      {% else %}
-      <p>No tasks available.</p>
-      {% endif %}
+        {% include 'task_manager_app/partials/task_btns.html' %}
+
     </div>
   </div>
 </div>

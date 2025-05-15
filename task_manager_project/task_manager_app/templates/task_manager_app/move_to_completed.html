@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+<head>
+{% load static %}
+    {% block title %} Move Task to completed {% endblock %}
+</head>
+{% block content %}
+<body class="padding-top-225">
+    <h1>Move Task to Completed</h1>
+    <p>Are you sure you want to move the task "<strong>{{ task.title }}</strong>" to completed?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Move to Completed</button>
+        <a href="{% url 'tasks_list' %}">Cancel</a>
+    </form>
+</body>
+{% endblock %}

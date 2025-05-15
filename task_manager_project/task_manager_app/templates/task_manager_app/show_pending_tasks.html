@@ -11,20 +11,9 @@
   <div class="row d-flex align-items-stretch">
     {% include 'task_manager_app/partials/task_tabs.html' with active_tab='all' %}
     <div class="mt-5">
-    {% if pending_tasks %}
-    <ul>
-      {% for task in pending_tasks %}
-      <li>
-        <h2>{{ task.title }}</h2>
-        <p>{{ task.description }}</p>
-        <p>Due Date: {{ task.due_date }}</p>
-      </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p>No pending tasks available.</p>
-    {% endif %}
-  </div>
+      
+            {% include 'task_manager_app/partials/task_btns.html' %}
+
 </div>
 </div>
 </body>
