@@ -8,11 +8,11 @@
           {% if task.completed %}
             <a href="{% url 'move_to_pending' task.id %}" class="btn btn-primary btn-sm">Move to Pending</a>
           {% elif not task.completed %}
-            <a href="{% url 'move_to_completed' task.id %}" class="btn btn-primary btn-sm">Move to Completed</a>
+            <a href="{% url 'move_to_completed' task.id %}" class="btn btn-success btn-sm">Move to Completed</a>
           {% endif %}
           <a href="{% url 'task_delete' task.id %}" class="btn btn-danger btn-sm">Delete</a>
-          <button>View Details</button>
-          <button>Edit</button>
+          <a href="{% url 'task_detail' task.id %}" class="btn btn-info btn-sm">View Details</a>
+          
           
         </li>
         {% endfor %}

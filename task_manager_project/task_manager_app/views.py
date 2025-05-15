@@ -66,8 +66,21 @@ def task_detail_view(request, task_id):
 @login_required(login_url='login')
 def task_edit_view(request, task_id):
     task = get_object_or_404(Task, id=task_id, created_by=request.user)
-    # Add form handling here
-    return render(request, 'task_manager_app/task_edit.html', {'task': task})
+    
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            task = form.save(commit=False)
+            # Preserve the task owner and creation time
+            task.created_by = request.user
+            task.save()
+            messages.success(request, f"Task '{task.title}' has been updated successfully!")
+            return redirect('task_detail', task_id=task.id)
+    else:
+        # For GET request, initialize form with existing task data
+        form = TaskForm(instance=task)
+    
+    return render(request, 'task_manager_app/task_edit.html', {'form': form, 'task': task})
 
 
     # task = get_object_or_404(Task, id=task_id, created_by=request.user)
@@ -132,7 +145,15 @@ def move_to_completed_view(request, task_id):
 @login_required(login_url='login')
 def profile_view(request):
     user = get_object_or_404(User, id=request.user.id)
-    return render(request, 'task_manager_app/profile.html', {'user': user})
+    completed_tasks = Task.objects.filter(created_by=user, completed=True)
+    pending_tasks = Task.objects.filter(created_by=user, completed=False)
+    total_tasks_count = completed_tasks.count() + pending_tasks.count()
+    completed_tasks_count = completed_tasks.count()
+    pending_tasks_count = pending_tasks.count()
+    return render(request, 'task_manager_app/profile.html', {'user': user,
+        'total_tasks': total_tasks_count,
+        'completed_tasks_count': completed_tasks_count,
+        'pending_tasks_count': pending_tasks_count})
 
 def register_view(request):
     if request.method == 'POST':
