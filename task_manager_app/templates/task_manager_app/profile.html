@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<body class="padding-top-225">
+<section>
+    <div class="container">
+        <div class="row">
+            <h1>User Profile</h1>
+            <p>Username: {{ user.username }}</p>
+            <p>Email: {{ user.email }}</p>
+            {% if completed_tasks_count %}
+                <p>Number of completed tasks: {{ completed_tasks_count }}</p>
+            {% else %}
+                <p>No completed tasks</p>
+            {% endif %}
+            {% if pending_tasks_count %}
+                <p>Number of pending tasks: {{ pending_tasks_count }}</p>
+            {% else %}
+            <p>No pending tasks</p>
+            
+
+            {% endif %}
+            
+        </div>
+    </div>
+</section>
+
+</body>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<body class="padding-top-225">
+    <section>
+    <div class="container">
+    <div class="row ms-5">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Edit Task {{ task.id }}</h5>
+                    <form method="POST" action="{% url 'task_edit' task.id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" value="{{ task.title }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3">{{ task.description }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="due_date" class="form-label">Due Date</label>
+                            <input type="date" class="form-control" id="due_date" name="due_date" value="{{ task.due_date|date:'Y-m-d' }}">
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-primary">Save Changes</button>
+                        <a href="{% url 'task_detail' task.id %}" class="btn btn-sm btn-secondary">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </section>
+</body>
+{% endblock %}

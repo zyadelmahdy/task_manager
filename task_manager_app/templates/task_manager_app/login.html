@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register{% endblock %}
+{% block content %}
+    <body class="padding-top-225">
+        
+<div class="container">
+  <div class="row d-flex align-items-stretch">
+    <!-- First column (6 units wide) -->
+    <div class="col-6 p-0 mb-5">
+      <div class="imageSection h-100">
+        <img src="{% static 'task_manager_app/login_img.jpg' %}?v=3" class="login-img h-100" alt="login image" />
+      </div>
+    </div>
+    
+    <!-- Second column (6 units wide) -->
+    <div class="col-6">
+      <div class="contactForm">
+        <h1>Login Form</h1>
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Error:</strong>
+            {% for field, errors in form.errors.items %}
+                {% if field == '__all__' %}
+                    {% for error in errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% else %}
+                    {{ field }}: 
+                    {% for error in errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="row align-items-center">
+            <input type="submit" class="btn btn-primary" value="Login">
+            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+    </body>
+{% endblock %}
+
+
+
+
+

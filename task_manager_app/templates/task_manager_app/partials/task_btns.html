@@ -1,0 +1,22 @@
+{% if tasks %}
+      <ul>
+        {% for task in tasks %}
+        <li class="mb-5">
+          <h2>{{ task.title }}</h2>
+          <p>{{ task.description }}</p>
+          <p>Due Date: {% if task.due_date %}{{ task.due_date }}{% else %}Not set{% endif %}</p>
+          {% if task.completed %}
+            <a href="{% url 'move_to_pending' task.id %}" class="btn btn-primary btn-sm">Move to Pending</a>
+          {% elif not task.completed %}
+            <a href="{% url 'move_to_completed' task.id %}" class="btn btn-success btn-sm">Move to Completed</a>
+          {% endif %}
+          <a href="{% url 'task_delete' task.id %}" class="btn btn-danger btn-sm">Delete</a>
+          <a href="{% url 'task_detail' task.id %}" class="btn btn-info btn-sm">View Details</a>
+          
+          
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No tasks available.</p>
+      {% endif %}

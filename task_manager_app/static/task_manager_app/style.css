@@ -1,0 +1,58 @@
+body {
+  overflow-x: hidden;
+  
+}
+
+.padding-top-225{
+  padding-top: 225px;
+}
+
+* {
+  font-family: "Tagesschrift", system-ui!important;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.logo {
+  width: 170px;
+  height: auto;
+}
+
+.logo-txt {
+  font-family: "Tagesschrift", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.navbar-custom {
+  background-color: #f3e9d5!important;
+}
+
+.profile-icon {
+  font-size: 35px!important;
+}
+
+.logout-icon {
+  font-size: 30px!important;
+}
+
+.flex-container-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Add this to ensure dropdowns are visible */
+.dropdown-menu {
+  display: none;
+  z-index: 1000; 
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+/* Ensure the dropdown appears above other elements */
+.nav-item.dropdown {
+  position: relative;
+}
