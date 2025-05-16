@@ -31,7 +31,7 @@ SECRET_KEY = 'wdNoHOpKGFPf1u2l3h7UsZwtChKOJ1FJKrqhRC03OwYzAitAcz9CND5OyeQ1IVvUz1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['task-manager-q72f.onrender.com']
 
 LOGIN_URL = '/login/'
 # Application definition
