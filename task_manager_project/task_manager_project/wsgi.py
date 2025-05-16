@@ -11,6 +11,12 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+import sys
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'task_manager_project.settings')
 
 application = get_wsgi_application()
+
+
+
+print("Current working directory:", os.getcwd())
+print("sys.path:", sys.path)
