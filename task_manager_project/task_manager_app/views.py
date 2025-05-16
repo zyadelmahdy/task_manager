@@ -7,7 +7,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.urls import reverse
+from django.core.paginator import Paginator
 
+
+
+def get_user_task_or_redirect(request, task_id):
+    try:
+        task = get_object_or_404(Task, pk=task_id, created_by=request.user)
+        return task
+    except Task.DoesNotExist:
+        messages.error(request, "Task not found.")
+        return redirect(reverse('tasks_list'))
 
 
 def login_view(request):
@@ -33,9 +43,13 @@ def login_view(request):
 def task_list_view(request):
     # Get all tasks for the current user without filtering by completion status
     tasks = Task.objects.filter(created_by=request.user).order_by('completed', '-created_at')
+    paginator = Paginator(tasks, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     return render(request, 'task_manager_app/tasks_list.html', {
         'tasks': tasks,
-        'active_tab': 'all'
+        'active_tab': 'all',
+        'page_obj': page_obj,
     })
     
 
@@ -82,19 +96,9 @@ def task_edit_view(request, task_id):
     
     return render(request, 'task_manager_app/task_edit.html', {'form': form, 'task': task})
 
-
-    # task = get_object_or_404(Task, id=task_id, created_by=request.user)
-    # # Add deletion confirmation handling
-    # return render(request, 'task_manager_app/task_delete.html', {'task': task})
-
 @login_required(login_url='login')
 def task_delete_view(request, task_id):
-    try:
-        task = get_object_or_404(Task, pk=task_id, created_by=request.user)
-    except Task.DoesNotExist:
-        # Handle the case where the task doesn't exist
-        messages.error(request, "Task not found.")
-        return redirect(reverse('tasks_list'))
+    task = get_user_task_or_redirect(request, task_id)
 
     if request.method == 'POST':
         task_number = task.id  # Or any other unique identifier you want to display
@@ -107,12 +111,7 @@ def task_delete_view(request, task_id):
 
 @login_required(login_url='login')    
 def move_to_pending_view(request, task_id):
-    try:
-        task = get_object_or_404(Task, pk=task_id, created_by=request.user)
-    except Task.DoesNotExist:
-        # Handle the case where the task doesn't exist
-        messages.error(request, "Task not found.")
-        return redirect(reverse('tasks_list'))
+    task = get_user_task_or_redirect(request, task_id)
     
     if request.method == 'POST':
         task_number = task.id
