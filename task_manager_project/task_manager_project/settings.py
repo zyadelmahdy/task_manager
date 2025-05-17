@@ -58,8 +58,8 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-ROOT_URLCONF = 'task_manager_project.urls'
-# ROOT_URLCONF = 'task_manager_project.task_manager_project.urls'
+# ROOT_URLCONF = 'task_manager_project.urls'
+ROOT_URLCONF = 'task_manager_project.task_manager_project.urls'
 
 
 
