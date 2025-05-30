@@ -12,7 +12,15 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
+DB_USER = os.getenv('POSTGRES_USER', 'myuser')
+DB_PASSWORD = os.getenv('POSTGRES_PASSWORD', 'mypassword')
+DB_HOST = os.getenv('POSTGRES_HOST', 'db')
+DB_PORT = os.getenv('POSTGRES_PORT', '5432')
+DB_NAME = os.getenv('POSTGRES_DB', 'mydatabase')
+
+SQLALCHEMY_DATABASE_URI = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +39,7 @@ SECRET_KEY = 'wdNoHOpKGFPf1u2l3h7UsZwtChKOJ1FJKrqhRC03OwYzAitAcz9CND5OyeQ1IVvUz1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['task-manager-q72f.onrender.com']
+ALLOWED_HOSTS = ['.onrender.com', 'localhost', '0.0.0.0']
 
 LOGIN_URL = '/login/'
 # Application definition
@@ -43,8 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'task_manager_app',
-    'task_manager_project.task_manager_app',
+    'task_manager_app',
+    # 'task_manager_project.task_manager_app',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +67,7 @@ MIDDLEWARE = [
 ]
 
 # ROOT_URLCONF = 'task_manager_project.urls'
-ROOT_URLCONF = 'task_manager_project.task_manager_project.urls'
+ROOT_URLCONF = 'task_manager_project.urls'  # This is correct
 
 
 
@@ -88,10 +96,19 @@ WSGI_APPLICATION = 'task_manager_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB', 'task_manager_db'),
+        'USER': os.getenv('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'postgres'),
+        'HOST': os.getenv('POSTGRES_HOST', 'db'),
+        'PORT': os.getenv('POSTGRES_PORT', '5432'),
     }
 }
+
+# Use DATABASE_URL from environment if available (for Render.com)
+database_url = os.environ.get('DATABASE_URL')
+if database_url:
+    DATABASES['default'] = dj_database_url.parse(database_url)
 
 
 # Password validation
@@ -131,7 +148,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'task_manager_project', 'task_manager_project', 'task_manager_app', 'static'),
+    os.path.join(BASE_DIR, 'task_manager_app', 'static'),
 ]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
