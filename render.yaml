@@ -24,13 +24,3 @@ services:
         generateValue: true
       - key: PORT
         value: 8000
-
-  # PostgreSQL database service
-  - type: database
-    name: task-manager-db
-    region: oregon
-    plan: free
-    properties:
-      engine: postgres         # Optional but good to specify
-      version: 14              # Choose a Postgres version
-    ipAllowList: []
