@@ -4,11 +4,11 @@ services:
     name: task-manager-app
     env: docker
     repo: https://github.com/yourusername/task_manager.git
-    region: oregon # Choose your region
+    region: oregon
     plan: free
     branch: main
     dockerfilePath: ./Dockerfile
-    dockerCommand: bash -c "/wait-for-db.sh db && cd task_manager_project && python manage.py migrate && gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:$PORT"
+    dockerCommand: bash -c "/wait-for-db.sh postgres && cd task_manager_project && python manage.py migrate && gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:$PORT"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -20,8 +20,8 @@ services:
         value: 8000
 
   # A PostgreSQL database
-  - type: pgsql
+  - type: postgres  # Changed from pgsql to postgres
     name: task-manager-db
     region: oregon
     plan: free
-    ipAllowList: [] # Allow all IPs
+    ipAllowList: []
