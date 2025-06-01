@@ -37,7 +37,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'wdNoHOpKGFPf1u2l3h7UsZwtChKOJ1FJKrqhRC03OwYzAitAcz9CND5OyeQ1IVvUz1s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ['.onrender.com', 'localhost', '0.0.0.0']
 
@@ -106,9 +106,9 @@ DATABASES = {
 }
 
 # Use DATABASE_URL from environment if available (for Render.com)
-database_url = os.environ.get('DATABASE_URL')
-if database_url:
-    DATABASES['default'] = dj_database_url.parse(database_url)
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
 
 
 # Password validation
