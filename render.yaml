@@ -1,14 +1,20 @@
 services:
-  # A Docker web service
+  # Web service: Django app with Docker
   - type: web
     name: task-manager-app
     env: docker
-    repo: https://github.com/yourusername/task_manager.git
+    repo: https://github.com/zyadelmahdy/task_manager.git   # Fixed repo URL
     region: oregon
     plan: free
     branch: main
     dockerfilePath: ./Dockerfile
-    dockerCommand: bash -c "/wait-for-db.sh postgres && cd task_manager_project && python manage.py migrate && gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:$PORT"
+    dockerCommand: >
+      bash -c "
+        ./wait-for-db.sh postgres &&
+        cd task_manager_project &&
+        python manage.py migrate &&
+        gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:$PORT
+      "
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -19,9 +25,12 @@ services:
       - key: PORT
         value: 8000
 
-  # A PostgreSQL database
-  - type: postgres  # Changed from pgsql to postgres
+  # PostgreSQL database service
+  - type: database
     name: task-manager-db
     region: oregon
     plan: free
+    properties:
+      engine: postgres         # Optional but good to specify
+      version: 14              # Choose a Postgres version
     ipAllowList: []
