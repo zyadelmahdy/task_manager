@@ -9,7 +9,9 @@ services:
     dockerfilePath: ./Dockerfile
     dockerCommand: >
       bash -c "
+        export PYTHONPATH=/opt/render/project/src &&
         cd task_manager_project &&
+        python manage.py collectstatic --noinput &&
         python manage.py migrate &&
         gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:$PORT
       "
