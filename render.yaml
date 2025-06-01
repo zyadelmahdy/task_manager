@@ -1,3 +1,27 @@
+# services:
+#   - type: web
+#     name: task-manager-app
+#     env: docker
+#     repo: https://github.com/zyadelmahdy/task_manager.git
+#     region: oregon
+#     plan: free
+#     branch: main
+#     dockerfilePath: ./Dockerfile
+#     dockerCommand: >
+#       bash -c "
+#         cd task_manager_project &&
+#         python manage.py migrate &&
+#         gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:$PORT
+#       "
+#     envVars:
+#       - key: DATABASE_URL
+#         sync: false
+#       - key: SECRET_KEY
+#         generateValue: true
+#       - key: PORT
+#         value: 8000
+
+
 services:
   - type: web
     name: task-manager-app
@@ -7,16 +31,9 @@ services:
     plan: free
     branch: main
     dockerfilePath: ./Dockerfile
-    dockerCommand: >
-      bash -c "
-        ./wait-for-db.sh postgres &&
-        cd task_manager_project &&
-        python manage.py migrate &&
-        gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:$PORT
-      "
     envVars:
       - key: DATABASE_URL
-        sync: false   # Remove the fromDatabase reference
+        sync: false
       - key: SECRET_KEY
         generateValue: true
       - key: PORT
