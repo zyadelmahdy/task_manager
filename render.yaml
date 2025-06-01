@@ -1,9 +1,8 @@
 services:
-  # Web service: Django app with Docker
   - type: web
     name: task-manager-app
     env: docker
-    repo: https://github.com/zyadelmahdy/task_manager.git   # Fixed repo URL
+    repo: https://github.com/zyadelmahdy/task_manager.git
     region: oregon
     plan: free
     branch: main
@@ -17,9 +16,7 @@ services:
       "
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: task-manager-db
-          property: connectionString
+        sync: false   # Remove the fromDatabase reference
       - key: SECRET_KEY
         generateValue: true
       - key: PORT
