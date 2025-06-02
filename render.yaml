@@ -7,11 +7,6 @@ services:
     plan: free
     branch: main
     dockerfilePath: ./Dockerfile
-    dockerCommand: |
-      bash -c "cd /opt/render/project/src/task_manager_project && 
-      python manage.py collectstatic --noinput &&
-      python manage.py migrate &&
-      gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:$PORT"
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -20,4 +15,4 @@ services:
       - key: PORT
         value: 8000
       - key: PYTHONPATH
-        value: /opt/render/project/src:/opt/render/project/src/task_manager_project
+        value: /app:/app/task_manager_project
