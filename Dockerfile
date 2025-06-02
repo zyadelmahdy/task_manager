@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Set working directory
-WORKDIR /app
+WORKDIR /app/task_manager_project
 
 # Install dependencies
 COPY requirements.txt .
@@ -25,3 +25,19 @@ EXPOSE 8000
 
 # Run migrations and start Gunicorn
 CMD ["bash", "-c", "python manage.py migrate && gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:8000"]
+
+
+
+# FROM python:3.11-slim
+
+# ENV PYTHONUNBUFFERED=1
+
+# WORKDIR /app/task_manager_project
+
+# COPY requirements.txt .
+# RUN pip install --upgrade pip
+# RUN pip install --no-cache-dir -r requirements.txt
+
+# COPY . .
+
+# CMD ["gunicorn", "task_manager_project.wsgi:application", "--bind", "0.0.0.0:10000", "--workers", "3"]
