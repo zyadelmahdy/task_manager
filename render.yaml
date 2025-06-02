@@ -8,18 +8,7 @@ services:
     branch: main
     dockerfilePath: ./Dockerfile
     dockerCommand: >
-      bash -c "
-        ls -la /opt/render/project/src &&
-        cd /opt/render/project/src &&
-        export PYTHONPATH=/opt/render/project/src:$PYTHONPATH &&
-        cd task_manager_project &&
-        ls -la &&
-        python -c 'import sys; print(sys.path)' &&
-        python manage.py collectstatic --noinput &&
-        python manage.py migrate &&
-        cd .. && 
-        gunicorn --pythonpath /opt/render/project/src/task_manager_project task_manager_project.wsgi:application --bind 0.0.0.0:$PORT
-      "
+      bash -c "cd /opt/render/project/src && gunicorn --pythonpath /opt/render/project/src start:application --bind 0.0.0.0:$PORT"
     envVars:
       - key: DATABASE_URL
         sync: false
