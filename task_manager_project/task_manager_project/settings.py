@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-# import dj_database_url
+import dj_database_url
 
 DB_USER = os.getenv('POSTGRES_USER', 'myuser')
 DB_PASSWORD = os.getenv('POSTGRES_PASSWORD', 'mypassword')
