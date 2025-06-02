@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Set working directory
-WORKDIR /app/task_manager_project
+WORKDIR /app
 
 # Install dependencies
 COPY requirements.txt .
