@@ -24,7 +24,7 @@ ENV PYTHONPATH=/app:/app/task_manager_project
 EXPOSE 8000
 
 # Run migrations and start Gunicorn
-CMD ["bash", "-c", "python manage.py migrate && gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:8000"]
+CMD ["bash", "-c", "python task_manager_project.manage.py migrate && gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:8000"]
 
 
 
