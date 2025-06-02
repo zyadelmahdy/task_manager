@@ -16,3 +16,4 @@ services:
         value: 8000
       - key: PYTHONPATH
         value: /app:/app/task_manager_project
+    startCommand: gunicorn task_manager_project.task_manager_project.wsgi:application
