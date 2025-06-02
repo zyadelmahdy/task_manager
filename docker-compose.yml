@@ -1,8 +1,7 @@
-# version: '3.9'
-
+version: '3.9'
 services:
   db:
-    image: postgres:15  # Change from postgres:13 to postgres:15
+    image: postgres:15
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -15,17 +14,15 @@ services:
   web:
     build: .
     command: >
-      bash -c "/wait-for-db.sh db && cd task_manager_project && 
-              DJANGO_SETTINGS_MODULE=task_manager_project.settings python manage.py migrate &&
-              DJANGO_SETTINGS_MODULE=task_manager_project.settings gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:8000"
-    volumes:
-      - .:/app
+      bash -c "/app/wait-for-db.sh db &&
+              python manage.py migrate &&
+              gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:8000"
     ports:
       - "8000:8000"
-    depends_on:
-      - db
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/task_manager_db
+    depends_on:
+      - db
 
 volumes:
   postgres_data:

@@ -1,16 +1,16 @@
-# #!/bin/bash
-# # wait-for-db.sh
+#!/bin/bash
+# wait-for-db.sh
 
-# set -e
+set -e
 
-# host="$1"
-# shift
-# cmd="$@"
+host="$1"
+shift
+cmd="$@"
 
-# until nc -z -v -w30 $host 5432; do
-#   echo "Waiting for PostgreSQL at $host to start..."
-#   sleep 1
-# done
+until nc -z "$host" 5432; do
+  >&2 echo "Waiting for PostgreSQL at $host:5432..."
+  sleep 1
+done
 
-# echo "PostgreSQL is up - executing command"
-# exec $cmd
+>&2 echo "PostgreSQL is up - executing command"
+exec $cmd
