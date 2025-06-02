@@ -24,8 +24,8 @@ ENV DJANGO_SETTINGS_MODULE=task_manager_project.settings
 # Expose the port Django will use
 EXPOSE 8000
 
-# Change into the correct directory and run from there
+# Change into the correct directory
 WORKDIR /app/task_manager_project
 
-# Debug version to see what's happening
-CMD ["sh", "-c", "ls -la && python -c 'import sys; print(sys.path)' && gunicorn wsgi:application --bind 0.0.0.0:8000"]
+# Command to run Gunicorn with proper module path
+CMD ["sh", "-c", "ls -la task_manager_project/ && gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:8000"]
