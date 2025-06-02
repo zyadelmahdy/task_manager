@@ -27,5 +27,5 @@ EXPOSE 8000
 # Change into the correct directory and run from there
 WORKDIR /app/task_manager_project
 
-# Command to run Gunicorn - Use pythonpath flag to help locate modules
-CMD ["gunicorn", "--pythonpath", ".", "wsgi:application", "--bind", "0.0.0.0:8000"]
+# Debug version to see what's happening
+CMD ["sh", "-c", "ls -la && python -c 'import sys; print(sys.path)' && gunicorn wsgi:application --bind 0.0.0.0:8000"]
