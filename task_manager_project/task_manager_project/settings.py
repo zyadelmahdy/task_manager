@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 import dj_database_url
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'your-default-secret-key')
@@ -39,8 +40,9 @@ DATABASES = {
 
 # Static files settings for Render
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 TEMPLATES = [
     {
