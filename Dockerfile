@@ -12,7 +12,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
-
+RUN apt-get update && apt-get install -y netcat-openbsd
 # Copy the project files
 COPY . .
 
@@ -25,19 +25,3 @@ EXPOSE 8000
 
 # Run migrations and start Gunicorn
 CMD ["bash", "-c", "python manage.py migrate && gunicorn task_manager_project.wsgi:application --bind 0.0.0.0:8000"]
-
-
-
-# FROM python:3.11-slim
-
-# ENV PYTHONUNBUFFERED=1
-
-# WORKDIR /app/task_manager_project
-
-# COPY requirements.txt .
-# RUN pip install --upgrade pip
-# RUN pip install --no-cache-dir -r requirements.txt
-
-# COPY . .
-
-# CMD ["gunicorn", "task_manager_project.wsgi:application", "--bind", "0.0.0.0:10000", "--workers", "3"]
