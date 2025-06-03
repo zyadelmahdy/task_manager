@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 import dj_database_url
 
-
+DEBUG = True
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'your-default-secret-key')
@@ -61,6 +61,7 @@ TEMPLATES = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://task-manager-q72f.onrender.com',
+    
 ]
 
 LANGUAGE_CODE = 'en-us'
