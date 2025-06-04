@@ -13,6 +13,7 @@ services:
 
   web:
     build: .
+    working_dir: /app/task_manager_project
     command: >
       bash -c "/app/wait-for-db.sh db &&
               python manage.py migrate &&
@@ -21,6 +22,8 @@ services:
       - "8000:8000"
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/task_manager_db
+      - DJANGO_SETTINGS_MODULE=task_manager_project.settings
+      - PYTHONPATH=/app/task_manager_project
     depends_on:
       - db
 

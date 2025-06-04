@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
+
+/* Scope all styles to the login container */
+.container .login-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+/* Remove global anchor styling */
+.contactForm a {
+  color: #3c63cc;
+  font-weight: 600;
+}
+.contactForm a:hover {
+  color: #2fa1fd;
+}
+
+.modernForm {
+  max-width: 1200px;
+  display: flex;
+  margin: 100px auto;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.imageSection {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.textInside,
+.service {
+  position: absolute;
+}
+
+.textInside {
+  bottom: 200px;
+  right: 120px;
+}
+
+.tagLine {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.service {
+  bottom: 30px;
+  right: 50px;
+}
+
+.service p {
+  font-weight: 700;
+}
+
+.contactForm {
+  height: 100%;
+  margin: auto;
+  color: #555;
+  padding: 20px;
+}
+
+.contactForm h1 {
+  padding: 15px 0;
+}
+
+/* Scope form elements to the contactForm class */
+.contactForm input[type="email"],
+.contactForm input[type="text"],
+.contactForm input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: rgb(177, 177, 177) 1px solid;
+  margin-top: 10px;
+}
+
+.contactForm .name {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.contactForm .iconName {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.contactForm input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.contactForm input[type="submit"] {
+  background-color: #3c63cc;
+  font-size: 1rem;
+  border: none;
+  color: white;
+  padding: 10px 50px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin: 30px 0;
+  cursor: pointer;
+  float: left;
+}
+
+.contactForm input[type="submit"]:hover {
+  background-color: #2fa1fd;
+}
+
+@media only screen and (max-width: 768px) {
+  .modernForm {
+    flex-wrap: wrap;
+  }
+
+  .imageSection,
+  .contactForm {
+    flex-basis: 100%;
+  }
+
+ .container .login-img {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .contactForm {
+    padding-right: 30px;
+  }
+}
