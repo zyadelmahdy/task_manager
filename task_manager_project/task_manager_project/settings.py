@@ -35,9 +35,17 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'task_manager_project.urls'
 WSGI_APPLICATION = 'task_manager_project.wsgi.application'
 
-DATABASES = {
-    'default': dj_database_url.config(default='postgres://postgres:postgres@db:5432/task_manager_db', conn_max_age=600)
-}
+if os.getenv('USE_SQLITE', 'True') == 'True':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.config(default='postgres://postgres:postgres@db:5432/task_manager_db', conn_max_age=600)
+    }
 
 # Static files settings for Render
 STATIC_URL = '/static/'
